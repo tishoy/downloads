@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        .bgimg {
+            position: fixed;
+            z-index: -2;
+        }
+
+        .footimg {
+            position: fixed;
+            bottom: 0;
+
+        }
+
+        .bgimg,
+        .logoimg,
+        .iphoneimg,
+        .footimg {
+            width: 100%;
+            margin: auto;
+            text-align: center;
+
+        }
+
+        .footimg {
+            margin: 20px auto;
+        }
+
+        .bgimg img {
+            display: block;
+            width: 100%;
+        }
+
+
+        .logoimg,
+        .iphoneimg {
+            /* padding: 2rem 0 0 0;*/
+            padding-top: 27px;
+            display: block;
+            margin: auto;
+            text-align: center;
+            width: 50%;
+            height: 100%;
+
+        }
+
+        .ipe {
+            padding-top: 20px;
+            padding-left: 50px;
+            width: 80%;
+        }
+
+
+        .footimg img {
+            display: block;
+            margin: auto;
+            z-index: -1;
+        }
+    </style>
+    <title>契机APP下载</title>
+</head>
+
+<body>
+
+    <div class="bgimg">
+        <img src="img/bg@2x.png" alt="bgimg" srcset="img/bg@2x.png 2x, img/bg@3x.png 3x">
+    </div>
+    <div class="logoimg">
+        <img src="img/logo@2x.png" alt="logoimg" srcset="img/logo@2x.png 2x, img/logo@3x.png 3x">
+    </div>
+    <div class="iphoneimg">
+        <img src="img/iphone@2x.png" alt="iphoneimg" srcset="img/iphone@2x.png 2x, img/iphone@3x.png 3x">
+    </div>
+
+    <div class="footimg" id="container">
+
+        <!-- <img src="img/com@2x.png" alt="logoimg" srcset="img/com@2x.png 2x, img/com@3x.png 3x"> -->
+    </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            var u = navigator.userAgent;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+            var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            // alert('是否是Android：' + isAndroid);
+            // alert('是否是iOS：' + isiOS);
+            if (isiOS) {
+                var download_link = document.createElement("a");
+                download_link.href = "itms-services://?action=download-manifest&url=https://www.pgyer.com/app/plist/842a9e653923e7c7d4c5796336be897b/install/s.plist";
+                download_link.download = "";
+                download_link.id = "download_link";
+                document.getElementById("container").appendChild(download_link);
+                var iosImg = document.createElement("img");
+                iosImg.src = "img/button@2x.png";
+                iosImg.alt = "logoimg";
+                iosImg.srcset = "img/button@2x.png 2x, img/button@3x.png 3x"
+                document.getElementById("download_link").appendChild(iosImg);
+                var help_link = document.createElement("a");
+                help_link.href = "https://jingyan.baidu.com/article/a681b0de09860d3b184346bc.html";
+                help_link.innerText = "“未受信任的企业级开发者”的解决办法"
+                document.getElementById("container").appendChild(help_link);
+            }
+            if (isAndroid) {
+                function is_weixin() {
+                    var ua = navigator.userAgent.toLowerCase();
+                    if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                var isWeixin = is_weixin();
+                var winHeight = typeof window.innerHeight != 'undefined' ? window.innerHeight : document.documentElement.clientHeight;
+                function loadHtml() {
+                    var div = document.createElement('div');
+                    div.id = 'weixin-tip';
+                    div.innerHTML = '<p><img src="img/arrow@2x.png" srcset="img/arrow@2x.png 2x, img/arrow@3x.png 3x"></p>';
+                    document.body.appendChild(div);
+                }
+
+                function loadStyleText(cssText) {
+                    var style = document.createElement('style');
+                    style.rel = 'stylesheet';
+                    style.type = 'text/css';
+                    try {
+                        style.appendChild(document.createTextNode(cssText));
+                    } catch (e) {
+                        style.styleSheet.cssText = cssText; //ie9以下
+                    }
+                    var head = document.getElementsByTagName("head")[0]; //head标签之间加上style样式
+                    head.appendChild(style);
+                }
+                var cssText = "#weixin-tip{position: fixed; left:0; top:0; background: rgba(0,0,0,0.8); filter:alpha(opacity=80); width: 100%; height:100%; z-index: 100;} #weixin-tip p{text-align: center; margin-top: 10%; padding:0 5%;}";
+
+                var androidImg = document.createElement("img");
+                androidImg.src = "img/button-2@2x.png";
+                androidImg.alt = "logoimg";
+                androidImg.srcset = "img/button-2@2x.png 2x, img/button-2@3x.png 3x";
+                if (isWeixin) {
+
+                    document.getElementById("container").appendChild(androidImg);
+                    document.getElementById("container").onclick = function () {
+                        loadHtml();
+                        loadStyleText(cssText);
+                    }
+                } else {
+                    window.location.href = "http://39.106.1.149/download/qiji.apk"
+                    var download_link = document.createElement("a");
+                    download_link.href = "http://39.106.1.149/download/qiji.apk";
+                    download_link.id = "download_link";
+                    download_link.download = "";
+                    document.getElementById("container").appendChild(download_link);
+                    document.getElementById("download_link").appendChild(androidImg);
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>
